@@ -7,15 +7,9 @@ def get_result(query: str):
     """
     with sqlite3.connect('data/netflix.db') as con:
         cursor = con.cursor()
-        cursor = cursor.execute(query).fetchall()
-        result = []
+        sql_result = cursor.execute(query).fetchall()
 
-        for item in cursor.execute(query).fetchall():
-            s = dict(item)
-
-            result.append(s)
-
-        return result
+        return sql_result
 
 
 def get_one_str(query: str):
@@ -28,11 +22,5 @@ def get_one_str(query: str):
 
         return result
 
-title = 'Abyss'
-query = f"""
-            SELECT * FROM netflix
-            WHERE title = '{title}'
-            ORDER BY date_added DESC
-    """
-a = get_result(query)
-print(a)
+
+# def get_sqlite_rating()

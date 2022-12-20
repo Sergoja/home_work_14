@@ -1,20 +1,18 @@
 import sqlite3
 
+
+year_first = 2010
+year_second = 2011
 with sqlite3.connect("data/netflix.db") as con:
     cur = con.cursor()
-    sqlite_query = """
-    SELECT * FROM netflix
-            WHERE title = 'Abyss'
-            ORDER BY date_added DESC
+    sqlite_query = f"""
+    SELECT title, release_year FROM netflix
+            WHERE release_year BETWEEN {year_first} AND {year_second}
+            AND "type" = 'Movie'
+            LIMIT 100
     """
-    result = cur.execute(sqlite_query)
-    result = cur.fetchall()
-    result = result[0]
-    all_tables = []
-    for item in result:
-        s = dict(item)
-        all_tables.append(s)
+    sql_result = cur.execute(sqlite_query).fetchall()
 
 
 if __name__ == '__main__':
-    print(all_tables)
+    print(sql_result)
