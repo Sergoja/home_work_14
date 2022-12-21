@@ -23,4 +23,13 @@ def get_one_str(query: str):
         return result
 
 
-# def get_sqlite_rating()
+def get_sqlite_duet(first_actor, second_actor):
+    query = f"""
+            SELECT "Cast" FROM netflix
+            WHERE "Cast" = '%{first_actor}%' And "Cast" = '%{second_actor}%'
+            """
+    list_of_actors = []
+    for element in get_result(query):
+        list_of_actors.append(element)
+
+    return list_of_actors

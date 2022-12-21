@@ -1,5 +1,5 @@
 from flask import Flask, jsonify
-from functions import get_result
+from functions import get_result, get_sqlite_duet
 
 app = Flask(__name__)
 
@@ -123,3 +123,7 @@ def get_result_by_genre(genre: str):
 if __name__ == '__main__':
     app.run(host='localhost', port=5000)
 
+first_actor = 'Rose McIver'
+second_actor = 'Ben Lamb'
+list_of_actors = get_sqlite_duet(first_actor, second_actor)
+print(list_of_actors)
