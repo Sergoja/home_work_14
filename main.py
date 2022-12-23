@@ -1,5 +1,5 @@
 from flask import Flask, jsonify
-from functions import get_result, get_sqlite_duet
+from functions import get_result, get_sqlite_duet, get_films_in_range
 
 app = Flask(__name__)
 
@@ -32,7 +32,7 @@ def get_result_by_year(year_first, year_second):
             AND "type" = 'Movie'
             LIMIT 100
     """
-    query_result = get_result(query)
+    query_result = get_films_in_range(query)
     movies = []
 
     for kolumn in query_result:
@@ -104,11 +104,11 @@ def get_result_by_rating_adult():
 def get_result_by_genre(genre: str):
     query = f"""
                 SELECT title, description FROM netflix
-                WHERE listed_in = '{genre}'
+                WHERE listed_in LIKE '%{genre}%'
                 ORDER BY release_year DESC
                 LIMIT 10
         """
-    query_result = get_result(query)
+    query_result = get_films_in_range(query)
     movies = []
 
     for kolumn in query_result:

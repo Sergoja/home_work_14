@@ -9,9 +9,22 @@ def get_result(query: str):
     """
     with sqlite3.connect('data/netflix.db') as con:
         cursor = con.cursor()
-        sql_result = cursor.execute(query).fetchall()
+        result = []
+        for item in cursor.execute(query).fetchall():
+            result += list(item)
 
-        return sql_result
+        return result
+
+
+def get_films_in_range(query: str):
+    """
+    Функция, получает SQL-запрос и выдаёт результат работы запроса с БД
+    """
+    with sqlite3.connect('data/netflix.db') as con:
+        cursor = con.cursor()
+        result = cursor.execute(query).fetchall()
+
+        return result
 
 
 def get_sqlite_duet(first_actor, second_actor):
